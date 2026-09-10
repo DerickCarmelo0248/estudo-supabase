@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+  jobs:
+    teste:
+      runs-on: ubuntu-lasted
+
+      steps:
+         - name: Checkout repository
+           uses: actions/checkout@v4
+
+         - name: Setup Node.js
+           uses: actions/setup-node@v4
+           with:
+             node-version: 22
+             cache: npm
+             cache-dependency-path: app/package-lock.json
+
+         - name: Install dependencies
+           working-directory: app
+           run: npm c1
+
+         - name: Check Node.js version
+           run: node --version
+
+         - name: check project
+           working-directory: app
+           run: node --check index.js
