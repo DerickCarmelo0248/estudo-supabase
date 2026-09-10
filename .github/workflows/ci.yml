@@ -5,28 +5,32 @@ on:
     branches:
       - main
 
-  jobs:
-    teste:
-      runs-on: ubuntu-lasted
+  pull_request:
+    branches:
+      - main
 
-      steps:
-         - name: Checkout repository
-           uses: actions/checkout@v4
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-         - name: Setup Node.js
-           uses: actions/setup-node@v4
-           with:
-             node-version: 22
-             cache: npm
-             cache-dependency-path: app/package-lock.json
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-         - name: Install dependencies
-           working-directory: app
-           run: npm c1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
 
-         - name: Check Node.js version
-           run: node --version
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci
 
-         - name: check project
-           working-directory: app
-           run: node --check index.js
+      - name: Check Node.js version
+        run: node --version
+
+      - name: Check project
+        working-directory: app
+        run: node --check index.js
