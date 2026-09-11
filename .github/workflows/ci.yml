@@ -40,6 +40,9 @@ jobs:
         with:
           config: auto
 
+      - name: Build Docker image
+        run: docker build -t estudo-supabase ./app
+
       - name: Check Node.js version
         run: node --version
 
