@@ -43,6 +43,14 @@ jobs:
       - name: Build Docker image
         run: docker build -t estudo-supabase ./app
 
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: estudo-supabase:lasted
+          format: table
+          exit-code: '1'
+          severity: HIGH,CRITICAL
+
       - name: Check Node.js version
         run: node --version
 
