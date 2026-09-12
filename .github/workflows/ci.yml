@@ -56,13 +56,10 @@ jobs:
           severity: HIGH,CRITICAL
 
       - name: Run container
-        run: |
-          docker run -d \
-            --name estudo-supabase-api \
-            -p 3000:3000 \
-            -e SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
-            -e SUPABASE_KEY=${{ secrets.SUPABASE_KEY }} \
-            estudo-supabase:latest
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: docker run -d --name estudo-supabase-api -p 3000:3000 -e SUPABASE_URL -e SUPABASE_KEY estudo-supabase:latest
 
       - name: Wait for container health
         run: |
