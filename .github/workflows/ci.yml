@@ -63,10 +63,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag Docker image
-        run: docker tag estudo-supabase:latest ghcr.io/${{ github.repository_owner }}/estudo-supabase:latest
+        run: docker tag estudo-supabase:latest ghcr.io/derickcarmelo0248/estudo-supabase:latest
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository_owner }}/estudo-supabase:latest
+        run: docker push ghcr.io/derickcarmelo0248/estudo-supabase:latest
 
       - name: Check Node.js version
         run: node --version
