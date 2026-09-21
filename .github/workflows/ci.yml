@@ -101,3 +101,45 @@ jobs:
       - name: Check project
         working-directory: app
         run: node --check index.js
+
+  deploy-dev:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show environment
+        run: echo "Deploying to ${{ vars.APP_ENV }}"
+
+      - name: Check DEV secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          test -n "$SUPABASE_URL"
+          test -n "$SUPABASE_KEY"
+          echo "DEV environment configured"
+
+  deploy-uat:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: uat
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show environment
+        run: echo "Deploying to ${{ vars.APP_ENV }}"
+
+      - name: Check UAT secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          test -n "$SUPABASE_URL"
+          test -n "$SUPABASE_KEY"
+          echo "UAT environment configured"
