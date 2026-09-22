@@ -22,7 +22,16 @@ app.get('/produtos', async (req, res) => {
 })
 
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'ok' })
+    res.status(200).json({ 
+	status: 'ok',
+	version: 'v2'
+    })
+})
+
+app.get('/env', (req, res) => {
+    res.json({
+        environment: process.env.APP_ENV
+    })
 })
 
 app.listen(3000, '0.0.0.0', () => {
