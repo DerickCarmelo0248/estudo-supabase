@@ -2,3 +2,5 @@ supabase/.temp/
 app/node_modules/
 app/.env
 .env
+app/.env.dev
+app/.env.uat
